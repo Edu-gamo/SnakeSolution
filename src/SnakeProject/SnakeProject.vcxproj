@@ -122,6 +122,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameSceneSnake.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Assert.hh" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="GameEngine.hh" />
+    <ClInclude Include="GameSceneSnake.h" />
+    <ClInclude Include="ID.hh" />
+    <ClInclude Include="InputManager.hh" />
+    <ClInclude Include="MenuScene.h" />
+    <ClInclude Include="Renderer.hh" />
+    <ClInclude Include="Resource.hh" />
+    <ClInclude Include="Scene.hh" />
+    <ClInclude Include="SceneManager.hh" />
+    <ClInclude Include="Sprite.hh" />
+    <ClInclude Include="System.hh" />
+    <ClInclude Include="TimeManager.hh" />
+    <ClInclude Include="Transform.hh" />
+    <ClInclude Include="Window.hh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
