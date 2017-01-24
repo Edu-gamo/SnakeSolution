@@ -8,7 +8,6 @@
 #include "System.hh"
 
 #pragma region GAME_SCENES
-//#include "GameScene.hh"
 #include "MenuScene.h"
 #include "GameSceneSnake.h"
 #pragma endregion TODO
@@ -17,16 +16,6 @@
 namespace GameEngine {
 	//! Loads main resources such as game images and fonts
 	void LoadMedia(void) {
-		/*R.LoadFont<FontID::ARIAL>("fnt/arial.ttf", 40);
-		R.LoadFont<FontID::CANDY>("fnt/candy.ttf", 50);
-		R.LoadFont<FontID::FACTORY>("fnt/candsb.ttf", 80);
-		R.LoadTexture<ObjectID::CELL_EMPTY>("gfx/empty.png");
-		R.LoadTexture<ObjectID::CANDY_BLUE>("gfx/blue.png");
-		R.LoadTexture<ObjectID::CANDY_RED>("gfx/red.png");
-		R.LoadTexture<ObjectID::CANDY_ORANGE>("gfx/orange.png");
-		R.LoadTexture<ObjectID::CANDY_PURPLE>("gfx/purple.png");
-		R.LoadTexture<ObjectID::CANDY_GREEN>("gfx/green.png");
-		R.LoadTexture<ObjectID::CANDY_YELLOW>("gfx/yellow.png");*/
 		R.LoadTexture<ObjectID::BG_00>("gfx/bg.jpg");
 
 		R.LoadTexture<ObjectID::MENU_BG>("gfx/BACKGROUND1.jpg");
@@ -35,14 +24,33 @@ namespace GameEngine {
 		R.LoadTexture<ObjectID::EASY_BUT>("gfx/BOTONEASY1.jpg");
 		R.LoadTexture<ObjectID::MEDIUM_BUT>("gfx/BOTONMEDIUM1.jpg");
 		R.LoadTexture<ObjectID::HARD_BUT>("gfx/BOTONHARD1.jpg");
+
+		R.LoadTexture<ObjectID::FRUIT>("gfx/fruit.png");
+
+		R.LoadTexture<ObjectID::SNK_BODY_HOR>("gfx/snake-B-HOR.png");
+		R.LoadTexture<ObjectID::SNK_BODY_VERT>("gfx/snake-B-VERT.png");
+
+		R.LoadTexture<ObjectID::SNK_HEAD_RIGHT>("gfx/snake-H-RIGHT.png");
+		R.LoadTexture<ObjectID::SNK_HEAD_UP>("gfx/snake-H-UP.png");
+		R.LoadTexture<ObjectID::SNK_HEAD_LEFT>("gfx/snake-H-LEFT.png");
+		R.LoadTexture<ObjectID::SNK_HEAD_DOWN>("gfx/snake-H-DOWN.png");
+
+		R.LoadTexture<ObjectID::SNK_TAIL_RIGHT>("gfx/snake-T-RIGHT.png");
+		R.LoadTexture<ObjectID::SNK_TAIL_UP>("gfx/snake-T-UP.png");
+		R.LoadTexture<ObjectID::SNK_TAIL_LEFT>("gfx/snake-T-LEFT.png");
+		R.LoadTexture<ObjectID::SNK_TAIL_DOWN>("gfx/snake-T-DOWN.png");
+
+		R.LoadTexture<ObjectID::SNK_UP_RIGHT>("gfx/snake-UpRight.png");
+		R.LoadTexture<ObjectID::SNK_UP_LEFT>("gfx/snake-UpLeft.png");
+		R.LoadTexture<ObjectID::SNK_DOWN_RIGHT>("gfx/snake-DownRight.png");
+		R.LoadTexture<ObjectID::SNK_DOWN_LEFT>("gfx/snake-DownLeft.png");
+
 	}
 	//! Adds the game scenes into the Scene Manager and decides which is the first screen
 	void AddScenes(void) {
 		SM.AddScene<MenuScene>();
 		SM.AddScene<GameSceneSnake>();
 		SM.SetCurScene<MenuScene>();
-		//SM.AddScene<GameScene>();
-		//SM.SetCurScene<GameScene>();
 	}
 	/**
 	* Runs the game specifying the window's name and dimensions

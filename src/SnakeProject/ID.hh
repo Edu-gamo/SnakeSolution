@@ -13,7 +13,12 @@ enum class ObjectID : int {
 	CELL_EMPTY, // Cell IDs
 	BG_00,  // Background IDs
 	MENU_BG, //Menu Background
-	PLAY_BUT, EXIT_BUT, EASY_BUT, MEDIUM_BUT, HARD_BUT //Buttons
+	PLAY_BUT, EXIT_BUT, EASY_BUT, MEDIUM_BUT, HARD_BUT, //Buttons
+	FRUIT, //Food
+	SNK_BODY_HOR, SNK_BODY_VERT, //Body parts
+	SNK_HEAD_RIGHT, SNK_HEAD_UP, SNK_HEAD_LEFT, SNK_HEAD_DOWN, //Head parts
+	SNK_TAIL_RIGHT, SNK_TAIL_UP, SNK_TAIL_LEFT, SNK_TAIL_DOWN, //Tail parts
+	SNK_UP_RIGHT, SNK_UP_LEFT, SNK_DOWN_RIGHT, SNK_DOWN_LEFT //Turn parts
 };
 inline std::ostream &operator<<(std::ostream &os, const ObjectID &id) { return os << int(id); };
 inline std::istream &operator>>(std::istream &is, ObjectID &id) { return is >> reinterpret_cast<int&>(id); };

@@ -1,7 +1,6 @@
 #pragma once
 #include "Scene.hh"
-
-#include "Sprite.hh"
+#include "Snake.h"
 
 class GameSceneSnake : public Scene {
 public:
@@ -13,4 +12,7 @@ public:
 	void Draw(void) override;
 private:
 	Sprite game_background;
+	Snake m_snake;
+	int frameRate = 0;
+	Direction newDir;
 };

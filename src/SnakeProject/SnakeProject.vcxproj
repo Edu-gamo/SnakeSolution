@@ -125,6 +125,7 @@
     <ClCompile Include="GameSceneSnake.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuScene.cpp" />
+    <ClCompile Include="Snake.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assert.hh" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Resource.hh" />
     <ClInclude Include="Scene.hh" />
     <ClInclude Include="SceneManager.hh" />
+    <ClInclude Include="Snake.h" />
     <ClInclude Include="Sprite.hh" />
     <ClInclude Include="System.hh" />
     <ClInclude Include="TimeManager.hh" />
