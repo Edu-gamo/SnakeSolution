@@ -135,6 +135,7 @@
     <ClInclude Include="GameSceneSnake.h" />
     <ClInclude Include="ID.hh" />
     <ClInclude Include="InputManager.hh" />
+    <ClInclude Include="IOManager.hh" />
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="Renderer.hh" />
     <ClInclude Include="Resource.hh" />

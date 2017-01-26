@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dificultades>
+ <dificultad id="easy">
+  <velocidad>10</velocidad>
+  <alimentos>10</alimentos>
+  <tiempo>60</tiempo>
+ </dificultad>
+ <dificultad id="medium">
+  <velocidad>15</velocidad>
+  <alimentos>15</alimentos>
+  <tiempo>45</tiempo>
+ </dificultad>
+ <dificultad id="hard">
+  <velocidad>20</velocidad>
+  <alimentos>20</alimentos>
+  <tiempo>30</tiempo>
+ </dificultad>
+</dificultades>
