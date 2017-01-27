@@ -14,40 +14,84 @@ namespace IOManager {
 		rapidxml::file<> xmlFile("myXML.xml");
 		rapidxml::xml_document<> doc;
 		doc.parse<0>(xmlFile.data());
-
 		std::cout << "Nombre de la raiz: " << doc.first_node()->name() << "\n";
 	}
 
 	void introducirRanking(string nombre, int score) {
-		char tab = '\t', linea = ';';
+		const char* nombrein = nombre.c_str();
+		int scorein = score;
+		char separacion = ';';
+		char* nombreout = {};
 		ofstream fsalida("ranking.dat", ios::out | ios::app | ios::binary);
 
-		fsalida.write(reinterpret_cast<char *>(&nombre), nombre.size());
-		fsalida.write(reinterpret_cast<char *>(&tab), sizeof(tab));
-		fsalida.write(reinterpret_cast<char *>(&score), sizeof(score));
-		fsalida.write(reinterpret_cast<char *>(&linea), sizeof(linea));
-		fsalida.close();
-	}
+		fsalida.write(reinterpret_cast<char *>(&nombrein), sizeof(nombrein));
+		fsalida.write(reinterpret_cast<char *>(&scorein), sizeof(scorein));
 
-	/*vector<pair<string, double>>*/ void leerRanking() {
+		fsalida.close();
+
+		/*ifstream fentrada("ranking.dat", ios::in | ios::binary);
+
+		fentrada.read(reinterpret_cast<char *>(&nombreout), sizeof(nombreout));
+
+		fentrada.close();
+
+		cout << nombreout << endl;*/
+	}
+	
+	/*vector<pair<char*, int>>*/ void leerRanking() {
+		vector<pair<char*, int>> ranking;
+		bool cond = false;
+		char* pruebachar;
+		int pruebaint;
+
 		ifstream fentrada("ranking.dat", ios::in | ios::binary);
-		vector<pair<string, double>> ranking;
-		char msn[256];
-		int i = 0;
-		
+
 		if (fentrada.is_open()) {
 			while (!fentrada.eof()) {
-				fentrada.read(reinterpret_cast<char *>(&msn), sizeof(msn));
+				if (!cond) {
+					fentrada.read(reinterpret_cast<char *>(&pruebachar), sizeof(pruebachar));
+					cond = true;
+				} else {
+					fentrada.read(reinterpret_cast<char *>(&pruebaint), sizeof(pruebaint));
+					ranking.push_back(make_pair(pruebachar, pruebaint));
+					cond = false;
+				}	
 			}
-
-			while (msn[i] != '\0') {
-				cout << msn[i];
-				i++;
-			}
-		} else {
+		}
+		else {
 			cout << "No hay ninguna puntuacion" << endl;
 		}
 
+		fentrada.close();
+
+		for (auto it = ranking.begin(); it != ranking.end(); ++it) {
+			auto v_temp = *it;
+			std::cout << v_temp.second << endl;
+		
+		}
+
 		//return ranking;
+	}
+
+	void introducirRanking2(string nombre, int score) {
+		const char* nombrein = nombre.c_str();
+		int scorein = score, scoreout;
+		char* nombreout = {};
+
+		ofstream fsalida("ranking.dat", ios::out | ios::binary);
+
+		fsalida.write(reinterpret_cast<char *>(&nombrein), sizeof(nombrein));
+		fsalida.write(reinterpret_cast<char *>(&scorein), sizeof(scorein));
+
+		fsalida.close();
+
+		ifstream fentrada("ranking.dat", ios::in | ios::binary);
+
+		fentrada.read(reinterpret_cast<char *>(&nombreout), sizeof(nombreout));
+		fentrada.read(reinterpret_cast<char *>(&scoreout), sizeof(scoreout));
+
+		fentrada.close();
+
+		cout << nombreout << ' ' << scoreout << endl;
 	}
 }

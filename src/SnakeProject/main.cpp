@@ -13,8 +13,9 @@
 
 int main(int argc, char* args[]) {
 	//IOManager::openingConfiguration();
-	//IOManager::introducirRanking("Carlos", 9999);
-	//IOManager::leerRanking();
+	IOManager::introducirRanking("Carlos", 9999);
+	IOManager::leerRanking();
+	//IOManager::introducirRanking2("carlos", 9999);
 	GameEngine::Run<SCREEN_WIDTH, SCREEN_HEIGHT>("Snake");
 	return 0;
 }
