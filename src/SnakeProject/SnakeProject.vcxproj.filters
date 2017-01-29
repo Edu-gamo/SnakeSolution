@@ -81,5 +81,8 @@
     <ClInclude Include="IOManager.hh">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Food.h">
+      <Filter>Model</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -47,9 +47,9 @@ void MenuScene::Update(void) {
 		mouseCoords = IM.GetMouseCoords();
 
 		//Comprobar si se ha pulsado alguno de los botones de dificultad
-		if (easy.IsActive() && easy.CheckPos(mouseCoords.x, mouseCoords.y)) { SetState<SceneState::SLEEP>(); }
-		else if (medium.IsActive() && medium.CheckPos(mouseCoords.x, mouseCoords.y)) { SetState<SceneState::SLEEP>(); }
-		else if (hard.IsActive() && hard.CheckPos(mouseCoords.x, mouseCoords.y)) SetState<SceneState::SLEEP>();
+		if (easy.IsActive() && easy.CheckPos(mouseCoords.x, mouseCoords.y)) { difficulty = 0; SetState<SceneState::SLEEP>(); }
+		else if (medium.IsActive() && medium.CheckPos(mouseCoords.x, mouseCoords.y)) { difficulty = 1; SetState<SceneState::SLEEP>(); }
+		else if (hard.IsActive() && hard.CheckPos(mouseCoords.x, mouseCoords.y)) { difficulty = 2; SetState<SceneState::SLEEP>(); }
 
 		//Comprobar si se ha pulsado el boton de jugar
 		if (play.IsActive() && play.CheckPos(mouseCoords.x, mouseCoords.y)) {
@@ -93,4 +93,8 @@ void MenuScene::Draw(void) {
 	if (easy.IsActive()) easy.GetSprite().Draw();
 	if (medium.IsActive()) medium.GetSprite().Draw();
 	if (hard.IsActive()) hard.GetSprite().Draw();
+	/*GUI::DrawTextShaded<FontID::FACTORY>("ENTI CRUSH", { W.GetWidth() >> 1,
+	int(W.GetHeight()*.1f), 1, 1 }, { 190, 0, 160 }, { 50, 200, 230 }); // Render score that will be different when updated
+	GUI::DrawTextBlended<FontID::CANDY>("Score: " + std::to_string(m_score),
+	{ W.GetWidth() >> 1, int(W.GetHeight()*.9f), 1, 1 }, { 115, 0, 180 }); // Render score that will be different when updated*/
 }

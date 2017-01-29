@@ -21,6 +21,6 @@ int main(int argc, char* args[]) {
 		std::cout << v_temp.first << ' ' << v_temp.second << endl;
 	}
 
-	//GameEngine::Run<SCREEN_WIDTH, SCREEN_HEIGHT>("Snake");
+	GameEngine::Run<SCREEN_WIDTH, SCREEN_HEIGHT>("Snake");
 	return 0;
 }

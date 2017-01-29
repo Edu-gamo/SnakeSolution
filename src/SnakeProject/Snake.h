@@ -21,11 +21,34 @@ public:
 	void Move(Direction dir); //Mueve la serpiente en una dirección comprobando las colisiones col los limites y con ella misma
 	bool IsDead() { return dead; }
 	void Draw();
+
 	SnakePart GetHead() { return head; }
+	SnakePart GetTail() { return tail; }
+	std::vector<SnakePart> GetSnakeParts() { return snk; }
+
+	void DrawParts(int x1, int y1, int x2, int y2, Direction dir);
+	int SwitchSprite(Direction fromDir, Direction toDir);
+	ObjectID TurnSprite(Direction fromDir, Direction toDir);
+	ObjectID ChangeSkin(bool skin, ObjectID actualSkin);
+
+	void SetSkinGreen(bool skin) { skinGreen = skin; }
+	bool IsGreen() { return skinGreen; }
+
+	void SnakeGrow() { growing = true; }
+
+	bool ObstaclesCollision();
+
+	void SetObstacles(std::vector<std::pair<bool, std::pair<int, int>>> obs) { obstacles = obs; }
+	std::vector<std::pair<bool, std::pair<int, int>>> GetObstacles() { return obstacles; }
+
+	void CheckSnake();
 
 private:
 	SnakePart head;
 	SnakePart tail;
 	std::vector<SnakePart> snk; //Vector que almacena la posición de todos los cambios de dirección
 	bool dead = false;
+	bool skinGreen = true;
+	bool growing = false;
+	std::vector<std::pair<bool, std::pair<int, int>>> obstacles;
 };
