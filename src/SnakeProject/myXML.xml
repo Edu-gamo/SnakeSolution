@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dificultades>
- <dificultad id="easy">
-  <velocidad>10</velocidad>
-  <alimentos>10</alimentos>
-  <tiempo>60</tiempo>
- </dificultad>
- <dificultad id="medium">
-  <velocidad>15</velocidad>
-  <alimentos>15</alimentos>
-  <tiempo>45</tiempo>
- </dificultad>
- <dificultad id="hard">
-  <velocidad>20</velocidad>
-  <alimentos>20</alimentos>
-  <tiempo>30</tiempo>
- </dificultad>
-</dificultades>
+<difficulties>
+ <difficulty id="easy">
+  <lives>4</lives>
+  <food>10</food>
+  <time>120</time>
+ </difficulty>
+ <difficulty id="medium">
+  <lives>3</lives>
+  <food>20</food>
+  <time>90</time>
+ </difficulty>
+ <difficulty id="hard">
+  <lives>2</lives>
+  <food>30</food>
+  <time>60</time>
+ </difficulty>
+</difficulties>
