@@ -38,6 +38,10 @@ private:
 	bool pauseLevelUp = false;
 	bool pauseDead = false;
 
+	int maxTime;
+	int actualTime;
+	int time = 0;
+
 	//Previous snake on level up
 	SnakePart preHead;
 	SnakePart preTail;

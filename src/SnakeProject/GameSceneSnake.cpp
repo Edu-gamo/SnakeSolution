@@ -14,17 +14,23 @@ void GameSceneSnake::OnEntry(void) {
 	m_snake = Snake();
 	newDir = m_snake.GetHead().dir;
 	frameLimit = 200;
+	score = 0;
+	contadorNivel = 1;
 	std::vector<std::pair<bool, std::pair<int, int>>> newObstacles;
 	if (difficulty == 0) {
 			alimentosASumar = IOManager::consultarXML("easy", "food");
 			limiteAlimentos = IOManager::consultarXML("easy", "startingFood");
 			vidas = IOManager::consultarXML("easy", "lives");
 			frameLimit -= IOManager::consultarXML("easy", "startingSpeed");
+			maxTime = IOManager::consultarXML("easy", "time");
+			actualTime = maxTime;
 	} else if (difficulty == 1) {
 		alimentosASumar = IOManager::consultarXML("medium", "food");
 		limiteAlimentos = IOManager::consultarXML("medium", "startingFood");
 		vidas = IOManager::consultarXML("medium", "lives");
 		frameLimit -= IOManager::consultarXML("medium", "startingSpeed");
+		maxTime = IOManager::consultarXML("medium", "time");
+		actualTime = maxTime;
 		for (int i = 4; i < (W.GetHeight() / m_snake.GetHead().spr.transform.h) - 5; i++) {
 			std::pair<int, int> pos;
 			pos.second = i;
@@ -40,6 +46,8 @@ void GameSceneSnake::OnEntry(void) {
 		limiteAlimentos = IOManager::consultarXML("hard", "startingFood");
 		vidas = IOManager::consultarXML("hard", "lives");
 		frameLimit -= IOManager::consultarXML("hard", "startingSpeed");
+		maxTime = IOManager::consultarXML("hard", "time");
+		actualTime = maxTime;
 		for (int i = 4; i < (W.GetHeight() / m_snake.GetHead().spr.transform.h) - 5; i++) {
 			std::pair<int, int> pos;
 			pos.second = i;
@@ -125,11 +133,12 @@ void GameSceneSnake::Update(void) {
 		if (frameRate > frameLimit) {
 			if (m_snake.IsDead() && vidas > 0) {
 				vidas--;
-				m_snake.NotDead();
+				m_snake.SetDead(false);
 				m_snake.SetHead(preHead);
 				m_snake.SetTail(preTail);
 				m_snake.SetSnakeParts(preSnakeParts);
 				newDir = preHead.dir;
+				contadorAlimentos = 0;
 				pauseDead = true;
 			}
 			if (!m_snake.IsDead() && !pauseDead) {
@@ -140,6 +149,7 @@ void GameSceneSnake::Update(void) {
 		else {
 			frameRate += (int)TM.GetDeltaTime();
 		}
+
 	}
 	else {
 		pauseLevelUp = true;
@@ -155,6 +165,17 @@ void GameSceneSnake::Update(void) {
 			preSnakeParts = m_snake.GetSnakeParts();
 		}
 	}
+
+	if (!m_snake.IsDead() && !pauseDead && !pauseLevelUp) {
+		if (time > 1000) {
+			actualTime -= 1;
+			time = 0;
+		}
+		time += TM.GetDeltaTime();
+	} else {
+		actualTime = maxTime;
+	}
+	if (actualTime == 0) m_snake.SetDead(true);
 
 }
 
@@ -175,6 +196,19 @@ void GameSceneSnake::Draw(void) {
 		newSpr.transform.h = W.GetHeight() / 24;
 		newSpr.transform.y = 0;
 		newSpr.transform.x = (W.GetWidth() / 7) + i * newSpr.transform.w;
+		newSpr.Draw();
+	}
+
+	if (actualTime > 0) {
+		Sprite newSpr;
+		newSpr.objectID = ObjectID::TIME_BAR2;
+		newSpr.transform.h = W.GetHeight() / 24;
+		newSpr.transform.y = 0;
+		newSpr.transform.x = W.GetWidth() - 150;
+		newSpr.transform.w = 100;
+		newSpr.Draw();
+		newSpr.objectID = ObjectID::TIME_BAR1;
+		newSpr.transform.w = 100 * ((float)actualTime / (float)maxTime);
 		newSpr.Draw();
 	}
 

@@ -20,7 +20,7 @@ public:
 	Snake();
 	void Move(Direction dir); //Mueve la serpiente en una dirección comprobando las colisiones col los limites y con ella misma
 	bool IsDead() { return dead; }
-	void NotDead() { dead = false; }
+	void SetDead(bool n_dead) { dead = n_dead; }
 	void Draw();
 
 	SnakePart GetHead() { return head; }

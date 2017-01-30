@@ -18,6 +18,9 @@ namespace GameEngine {
 	void LoadMedia(void) {
 		R.LoadFont<FontID::ARIAL>("fnt/arial.ttf", 30);
 
+		R.LoadTexture<ObjectID::TIME_BAR1>("gfx/timeBar.png");
+		R.LoadTexture<ObjectID::TIME_BAR2>("gfx/timeBar2.png");
+
 		R.LoadTexture<ObjectID::MENU_BG>("gfx/BACKGROUND1.jpg");
 		R.LoadTexture<ObjectID::GAME_BG>("gfx/GAME_BACKGROUND.jpg");
 

@@ -31,7 +31,8 @@ enum class ObjectID : int {
 	PLAY_BUT, EXIT_BUT, EASY_BUT, MEDIUM_BUT, HARD_BUT, //Buttons
 	WALL_G, WALL_R,
 	FRUIT_G, FRUIT_R, //Food
-	HEART
+	HEART,
+	TIME_BAR1, TIME_BAR2
 };
 inline std::ostream &operator<<(std::ostream &os, const ObjectID &id) { return os << int(id); };
 inline std::istream &operator>>(std::istream &is, ObjectID &id) { return is >> reinterpret_cast<int&>(id); };
