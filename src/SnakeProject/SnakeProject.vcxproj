@@ -131,9 +131,11 @@
   <ItemGroup>
     <ClInclude Include="Assert.hh" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Color.hh" />
     <ClInclude Include="Food.h" />
     <ClInclude Include="GameEngine.hh" />
     <ClInclude Include="GameSceneSnake.h" />
+    <ClInclude Include="GUI.hh" />
     <ClInclude Include="ID.hh" />
     <ClInclude Include="InputManager.hh" />
     <ClInclude Include="IOManager.hh" />
