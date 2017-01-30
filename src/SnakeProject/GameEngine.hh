@@ -126,10 +126,11 @@ namespace GameEngine {
 			case SceneState::RUNNING:	IM.Update(); m_curScene->Update(); break; // Updates the InputManager and the current scene
 			case SceneState::EXIT:		m_isRunning = false; break; // Triggers an end of the game looping
 			case SceneState::SLEEP:		if (m_curScene == SM.GetScene<MenuScene>()) {
-				SM.GetScene<GameSceneSnake>()->SetDifficulty(SM.GetScene<MenuScene>()->GetDifficulty());
-				SM.SetCurScene<GameSceneSnake>();
-			}
+											SM.GetScene<GameSceneSnake>()->SetDifficulty(SM.GetScene<MenuScene>()->GetDifficulty());
+											SM.SetCurScene<GameSceneSnake>();
+										}
 										else if (m_curScene == SM.GetScene<GameSceneSnake>()) {
+											SM.GetScene<RankingScene>()->SetScore(SM.GetScene<GameSceneSnake>()->GetScore());
 											SM.SetCurScene<RankingScene>();
 										}
 										else {

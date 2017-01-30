@@ -11,10 +11,10 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 
-	void SetScore(int scor) { score = scor; }
+	void SetScore(int n_score) { score = n_score; }
 
 private:
 	Sprite menu_background;
 	int score;
-	
+	std::vector<std::pair<std::string, int>> ranking_desordenado;
 };
