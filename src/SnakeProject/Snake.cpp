@@ -143,7 +143,7 @@ void Snake::DrawParts(int x1, int y1, int x2, int y2, Direction dir) {
 
 	case Direction::RIGHT:
 		if (skinGreen) { newSpr.objectID = ObjectID::SNK_G_BODY_HOR; }
-		else { newSpr.objectID = ObjectID::SNK_B_BODY_HOR; }
+		else { newSpr.objectID = ObjectID::SNK_R_BODY_HOR; }
 		newSpr.transform.y = y1 * newSpr.transform.h;
 		for (int j = x1 + 1; j < x2; j++) {
 			newSpr.transform.x = j * newSpr.transform.w;
@@ -153,7 +153,7 @@ void Snake::DrawParts(int x1, int y1, int x2, int y2, Direction dir) {
 
 	case Direction::LEFT:
 		if (skinGreen) { newSpr.objectID = ObjectID::SNK_G_BODY_HOR; }
-		else { newSpr.objectID = ObjectID::SNK_B_BODY_HOR; }
+		else { newSpr.objectID = ObjectID::SNK_R_BODY_HOR; }
 		newSpr.transform.y = y1 * newSpr.transform.h;
 		for (int j = x1 - 1; j > x2; j--) {
 			newSpr.transform.x = j * newSpr.transform.w;
@@ -163,7 +163,7 @@ void Snake::DrawParts(int x1, int y1, int x2, int y2, Direction dir) {
 
 	case Direction::UP:
 		if (skinGreen) { newSpr.objectID = ObjectID::SNK_G_BODY_VERT; }
-		else { newSpr.objectID = ObjectID::SNK_B_BODY_VERT; }
+		else { newSpr.objectID = ObjectID::SNK_R_BODY_VERT; }
 		newSpr.transform.x = x1 * newSpr.transform.w;
 		for (int j = y1 - 1; j > y2; j--) {
 			newSpr.transform.y = j * newSpr.transform.h;
@@ -173,7 +173,7 @@ void Snake::DrawParts(int x1, int y1, int x2, int y2, Direction dir) {
 
 	case Direction::DOWN:
 		if (skinGreen) { newSpr.objectID = ObjectID::SNK_G_BODY_VERT; }
-		else { newSpr.objectID = ObjectID::SNK_B_BODY_VERT; }
+		else { newSpr.objectID = ObjectID::SNK_R_BODY_VERT; }
 		newSpr.transform.x = x1 * newSpr.transform.w;
 		for (int j = y1 + 1; j < y2; j++) {
 			newSpr.transform.y = j * newSpr.transform.h;

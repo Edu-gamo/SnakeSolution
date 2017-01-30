@@ -1,5 +1,6 @@
 #include "GameSceneSnake.h"
 #include "System.hh"
+#include "GUI.hh"
 
 GameSceneSnake::GameSceneSnake(void) {
 	game_background = { { 0, 0, W.GetWidth(), W.GetHeight() }, ObjectID::GAME_BG };
@@ -48,7 +49,7 @@ void GameSceneSnake::OnExit(void) {
 
 void GameSceneSnake::Update(void) {
 
-	if (IM.IsKeyDown<KEY_BUTTON_ESCAPE>()) SetState<SceneState::SLEEP>();
+	if (IM.IsKeyDown<KEY_BUTTON_ENTER>() && m_snake.IsDead()) SetState<SceneState::SLEEP>();
 
 	//Comprobar teclas de dirección dependiendo de la dirección actual
 	if (m_snake.GetHead().dir == Direction::RIGHT || m_snake.GetHead().dir == Direction::LEFT) {
@@ -76,13 +77,15 @@ void GameSceneSnake::Update(void) {
 			if (frameLimit - speedIncrement <= minLimit) { frameLimit = minLimit; }
 			else frameLimit -= speedIncrement;
 		}
-		if (food.GetSprite().objectID == ObjectID::FRUIT_G) {
-			m_snake.SetSkinGreen(true);
-			if (difficulty == 2) m_snake.SetObstacles(ChangeObstacles(true));
-		}
-		else {
-			m_snake.SetSkinGreen(false);
-			if (difficulty == 2) m_snake.SetObstacles(ChangeObstacles(false));
+		if (difficulty == 2) {
+			if (food.GetSprite().objectID == ObjectID::FRUIT_G) {
+				m_snake.SetSkinGreen(true);
+				m_snake.SetObstacles(ChangeObstacles(true));
+			}
+			else {
+				m_snake.SetSkinGreen(false);
+				m_snake.SetObstacles(ChangeObstacles(false));
+			}
 		}
 	}
 	if (food.IsEaten()) food.SetFood(AvailablePositions());
@@ -104,13 +107,21 @@ void GameSceneSnake::Draw(void) {
 	DrawWalls();
 	m_snake.Draw();
 	food.GetSprite().Draw();
+
+	//Pintar GUI
+	if (m_snake.IsDead()) {
+		GUI::DrawTextBlended<FontID::ARIAL>("GAME OVER", { W.GetWidth() / 2, (W.GetHeight() / 2) - 15, 1, 1 }, { 0, 0, 0 });
+		GUI::DrawTextBlended<FontID::ARIAL>("Score: " + std::to_string(score), { W.GetWidth() / 2, (W.GetHeight() / 2) + 15, 1, 1 }, { 0, 0, 0 });
+		GUI::DrawTextBlended<FontID::ARIAL>("Press ENTER to continue...", { W.GetWidth() / 2, W.GetHeight() - 50, 1, 1 }, { 0, 0, 0 });
+	}
+	else GUI::DrawTextBlended<FontID::ARIAL>("Score: " + std::to_string(score), { W.GetWidth() / 2, 15, 1, 1 }, { 0, 0, 0 });
 }
 
 void GameSceneSnake::DrawWalls() {
 	Sprite newSpr;
-	/*if (m_snake.IsGreen()) { newSpr.objectID = ObjectID::WALL_G; }
-	else { newSpr.objectID = ObjectID::WALL_B; }*/
-	newSpr.objectID = ObjectID::WALL_G;
+	if (m_snake.IsGreen()) { newSpr.objectID = ObjectID::WALL_G; }
+	else { newSpr.objectID = ObjectID::WALL_R; }
+	//newSpr.objectID = ObjectID::WALL_G;
 	newSpr.transform.w = W.GetWidth() / 31;
 	newSpr.transform.h = W.GetHeight() / 24;
 
@@ -142,13 +153,11 @@ void GameSceneSnake::DrawWalls() {
 	std::vector<std::pair<bool, std::pair<int, int>>> obs = m_snake.GetObstacles();
 	if (obs.size() > 0) {
 		for (int i = 0; i < obs.size(); i++) {
-			if (obs[i].first) { newSpr.objectID = ObjectID::WALL_G; }
-			else { newSpr.objectID = ObjectID::WALL_B; }
-			//if (obs[i].first) {
+			if (difficulty < 2 || i < obs.size() / 2) { newSpr.objectID = ObjectID::WALL_G; }
+			else { newSpr.objectID = ObjectID::WALL_R; }
 			newSpr.transform.x = obs[i].second.first * newSpr.transform.w;
 			newSpr.transform.y = obs[i].second.second * newSpr.transform.h;
 			newSpr.Draw();
-			//}
 		}
 	}
 

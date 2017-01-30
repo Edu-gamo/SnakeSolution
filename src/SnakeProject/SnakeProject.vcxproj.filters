@@ -84,5 +84,11 @@
     <ClInclude Include="Food.h">
       <Filter>Model</Filter>
     </ClInclude>
+    <ClInclude Include="GUI.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

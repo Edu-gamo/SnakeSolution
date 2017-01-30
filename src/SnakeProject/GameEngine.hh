@@ -16,6 +16,7 @@
 namespace GameEngine {
 	//! Loads main resources such as game images and fonts
 	void LoadMedia(void) {
+		R.LoadFont<FontID::ARIAL>("fnt/arial.ttf", 30);
 
 		R.LoadTexture<ObjectID::MENU_BG>("gfx/BACKGROUND1.jpg");
 		R.LoadTexture<ObjectID::GAME_BG>("gfx/GAME_BACKGROUND.jpg");
@@ -26,11 +27,11 @@ namespace GameEngine {
 		R.LoadTexture<ObjectID::MEDIUM_BUT>("gfx/BOTONMEDIUM1.jpg");
 		R.LoadTexture<ObjectID::HARD_BUT>("gfx/BOTONHARD1.jpg");
 
-		R.LoadTexture<ObjectID::WALL_G>("gfx/wall.png");
-		R.LoadTexture<ObjectID::WALL_B>("gfx/wallB.png");
+		R.LoadTexture<ObjectID::WALL_G>("gfx/wallG.png");
+		R.LoadTexture<ObjectID::WALL_R>("gfx/wallR.png");
 
 		R.LoadTexture<ObjectID::FRUIT_G>("gfx/snakeG/fruitG.png");
-		R.LoadTexture<ObjectID::FRUIT_B>("gfx/snakeB/fruitB.png");
+		R.LoadTexture<ObjectID::FRUIT_R>("gfx/snakeR/fruitR.png");
 
 		//Green snake
 		R.LoadTexture<ObjectID::SNK_G_BODY_HOR>("gfx/snakeG/snakeG-B-HOR.png");
@@ -51,7 +52,26 @@ namespace GameEngine {
 		R.LoadTexture<ObjectID::SNK_G_DOWN_RIGHT>("gfx/snakeG/snakeG-DownRight.png");
 		R.LoadTexture<ObjectID::SNK_G_DOWN_LEFT>("gfx/snakeG/snakeG-DownLeft.png");
 
-		//Blue snake
+		//Red snake
+		R.LoadTexture<ObjectID::SNK_R_BODY_HOR>("gfx/snakeR/snakeR-B-HOR.png");
+		R.LoadTexture<ObjectID::SNK_R_BODY_VERT>("gfx/snakeR/snakeR-B-VERT.png");
+
+		R.LoadTexture<ObjectID::SNK_R_HEAD_RIGHT>("gfx/snakeR/snakeR-H-RIGHT.png");
+		R.LoadTexture<ObjectID::SNK_R_HEAD_UP>("gfx/snakeR/snakeR-H-UP.png");
+		R.LoadTexture<ObjectID::SNK_R_HEAD_LEFT>("gfx/snakeR/snakeR-H-LEFT.png");
+		R.LoadTexture<ObjectID::SNK_R_HEAD_DOWN>("gfx/snakeR/snakeR-H-DOWN.png");
+
+		R.LoadTexture<ObjectID::SNK_R_TAIL_RIGHT>("gfx/snakeR/snakeR-T-RIGHT.png");
+		R.LoadTexture<ObjectID::SNK_R_TAIL_UP>("gfx/snakeR/snakeR-T-UP.png");
+		R.LoadTexture<ObjectID::SNK_R_TAIL_LEFT>("gfx/snakeR/snakeR-T-LEFT.png");
+		R.LoadTexture<ObjectID::SNK_R_TAIL_DOWN>("gfx/snakeR/snakeR-T-DOWN.png");
+
+		R.LoadTexture<ObjectID::SNK_R_UP_RIGHT>("gfx/snakeR/snakeR-UpRight.png");
+		R.LoadTexture<ObjectID::SNK_R_UP_LEFT>("gfx/snakeR/snakeR-UpLeft.png");
+		R.LoadTexture<ObjectID::SNK_R_DOWN_RIGHT>("gfx/snakeR/snakeR-DownRight.png");
+		R.LoadTexture<ObjectID::SNK_R_DOWN_LEFT>("gfx/snakeR/snakeR-DownLeft.png");
+
+		/*//Blue snake
 		R.LoadTexture<ObjectID::SNK_B_BODY_HOR>("gfx/snakeB/snakeB-B-HOR.png");
 		R.LoadTexture<ObjectID::SNK_B_BODY_VERT>("gfx/snakeB/snakeB-B-VERT.png");
 
@@ -68,7 +88,7 @@ namespace GameEngine {
 		R.LoadTexture<ObjectID::SNK_B_UP_RIGHT>("gfx/snakeB/snakeB-UpRight.png");
 		R.LoadTexture<ObjectID::SNK_B_UP_LEFT>("gfx/snakeB/snakeB-UpLeft.png");
 		R.LoadTexture<ObjectID::SNK_B_DOWN_RIGHT>("gfx/snakeB/snakeB-DownRight.png");
-		R.LoadTexture<ObjectID::SNK_B_DOWN_LEFT>("gfx/snakeB/snakeB-DownLeft.png");
+		R.LoadTexture<ObjectID::SNK_B_DOWN_LEFT>("gfx/snakeB/snakeB-DownLeft.png");*/
 
 	}
 	//! Adds the game scenes into the Scene Manager and decides which is the first screen
