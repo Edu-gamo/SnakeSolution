@@ -1,6 +1,7 @@
 #include "GameSceneSnake.h"
 #include "System.hh"
 #include "GUI.hh"
+#include "IOManager.hh"
 
 GameSceneSnake::GameSceneSnake(void) {
 	game_background = { { 0, 0, W.GetWidth(), W.GetHeight() }, ObjectID::GAME_BG };
@@ -12,10 +13,16 @@ GameSceneSnake::~GameSceneSnake(void) {
 void GameSceneSnake::OnEntry(void) {
 	m_snake = Snake();
 	newDir = m_snake.GetHead().dir;
-	score = 0;
 	frameLimit = 200;
 	std::vector<std::pair<bool, std::pair<int, int>>> newObstacles;
-	if (difficulty > 0) {
+	if (difficulty == 0) {
+			alimentosASumar = IOManager::consultarXML("easy", "food");
+			limiteAlimentos = IOManager::consultarXML("easy", "startingFood");
+			vidas = IOManager::consultarXML("easy", "lives");
+	} else if (difficulty == 1) {
+		alimentosASumar = IOManager::consultarXML("medium", "food");
+		limiteAlimentos = IOManager::consultarXML("medium", "startingFood");
+		vidas = IOManager::consultarXML("medium", "lives");
 		for (int i = 4; i < (W.GetHeight() / m_snake.GetHead().spr.transform.h) - 5; i++) {
 			std::pair<int, int> pos;
 			pos.second = i;
@@ -26,8 +33,10 @@ void GameSceneSnake::OnEntry(void) {
 			pos.first = (W.GetWidth() / m_snake.GetHead().spr.transform.w) - 8;
 			newObstacles.push_back(std::pair<bool, std::pair<int, int>>(true, pos));
 		}
-	}
-	if (difficulty == 2) {
+	} else {
+		alimentosASumar = IOManager::consultarXML("hard", "food");
+		limiteAlimentos = IOManager::consultarXML("hard", "startingFood");
+		vidas = IOManager::consultarXML("hard", "lives");
 		for (int i = 8; i < (W.GetWidth() / m_snake.GetHead().spr.transform.w) - 8; i++) {
 			std::pair<int, int> pos;
 			pos.first = i;
@@ -37,7 +46,6 @@ void GameSceneSnake::OnEntry(void) {
 
 			pos.second = (W.GetHeight() / m_snake.GetHead().spr.transform.h) - 6;
 			newObstacles.push_back(std::pair<bool, std::pair<int, int>>(false, pos));
-
 		}
 	}
 	m_snake.SetObstacles(newObstacles);
@@ -72,7 +80,8 @@ void GameSceneSnake::Update(void) {
 	if (m_snake.GetHead().spr.transform.x == food.GetSprite().transform.x && m_snake.GetHead().spr.transform.y == food.GetSprite().transform.y) {
 		food.SetEaten();
 		m_snake.SnakeGrow();
-		score++;
+		score += (contadorAlimentos+1) * 100;
+		//score++;
 		if (frameLimit > minLimit && score % 2 == 0) {
 			if (frameLimit - speedIncrement <= minLimit) { frameLimit = minLimit; }
 			else frameLimit -= speedIncrement;
@@ -88,16 +97,25 @@ void GameSceneSnake::Update(void) {
 			}
 		}
 	}
-	if (food.IsEaten()) food.SetFood(AvailablePositions());
-
-	if (frameRate > frameLimit) {
-		if (!m_snake.IsDead()) {
-			m_snake.Move(newDir);
+	if (food.IsEaten()) {
+		food.SetFood(AvailablePositions());
+		contadorAlimentos++;
+	}
+	if (contadorAlimentos < limiteAlimentos) {
+		if (frameRate > frameLimit) {
+			if (!m_snake.IsDead()) {
+				m_snake.Move(newDir);
+			}
+			frameRate = 0;
 		}
-		frameRate = 0;
+		else {
+			frameRate += (int)TM.GetDeltaTime();
+		}
 	}
 	else {
-		frameRate += (int)TM.GetDeltaTime();
+		contadorNivel++;
+		contadorAlimentos = 0;
+		limiteAlimentos += alimentosASumar * contadorNivel;
 	}
 
 }
@@ -109,12 +127,19 @@ void GameSceneSnake::Draw(void) {
 	food.GetSprite().Draw();
 
 	//Pintar GUI
+	GUI::DrawTextBlended<FontID::ARIAL>("Nivel: " + std::to_string(contadorNivel),  { W.GetWidth() / 3, 15, 1, 1 },{ 0, 0, 0 });
+	GUI::DrawTextBlended<FontID::ARIAL>("Score: " + std::to_string(score), { W.GetWidth() / 2, 15, 1, 1 }, { 0, 0, 0 });
+	GUI::DrawTextBlended<FontID::ARIAL>("Vida: ", { W.GetWidth() / 6, 15, 1, 1 }, { 0, 0, 0 });
+	for (int i = 0; i < vidas; i++) {
+
+		GUI::DrawTextBlended<FontID::ARIAL>("\x03", { W.GetWidth() / 6, 15, 1, 1 }, { 0, 0, 0 });;
+	}
+
 	if (m_snake.IsDead()) {
 		GUI::DrawTextBlended<FontID::ARIAL>("GAME OVER", { W.GetWidth() / 2, (W.GetHeight() / 2) - 15, 1, 1 }, { 0, 0, 0 });
-		GUI::DrawTextBlended<FontID::ARIAL>("Score: " + std::to_string(score), { W.GetWidth() / 2, (W.GetHeight() / 2) + 15, 1, 1 }, { 0, 0, 0 });
 		GUI::DrawTextBlended<FontID::ARIAL>("Press ENTER to continue...", { W.GetWidth() / 2, W.GetHeight() - 50, 1, 1 }, { 0, 0, 0 });
 	}
-	else GUI::DrawTextBlended<FontID::ARIAL>("Score: " + std::to_string(score), { W.GetWidth() / 2, 15, 1, 1 }, { 0, 0, 0 });
+
 }
 
 void GameSceneSnake::DrawWalls() {

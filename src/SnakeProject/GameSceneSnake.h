@@ -28,6 +28,11 @@ private:
 	int speedIncrement = 10;
 	Direction newDir;
 	Food food;
-	int score;
+	int score = 0;
 	int difficulty = 0;
+	int contadorAlimentos = 0;
+	int contadorNivel = 1;
+	int limiteAlimentos;
+	int alimentosASumar = 0;
+	int vidas;
 };

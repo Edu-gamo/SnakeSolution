@@ -6,18 +6,39 @@
 #include <iostream>  
 #include <fstream>
 #include <string>
+#include <sstream>
 
 #define archivoRanking "ranking.dat"
-#define archivoConfiguacion "configuracion.dat"
+#define archivoConfiguacion "myXML.xml"
 
 using namespace std;
 
 namespace IOManager {
-	void openingConfiguration(string difficulty) {
-		rapidxml::file<> xmlFile(archivoConfiguacion);
+	int consultarXML(string difficulty, string datoABuscar) {
+		int datoARetornar= 0;
+		string str1;
+
 		rapidxml::xml_document<> doc;
-		doc.parse<0>(xmlFile.data());
-		std::cout << "Nombre de la raiz: " << doc.first_node()->name() << "\n";
+		std::ifstream xmlFile(archivoConfiguacion);
+		std::stringstream buffer;
+		buffer << xmlFile.rdbuf();
+		xmlFile.close();
+		std::string content(buffer.str());
+		doc.parse<0>(&content[0]);
+
+		rapidxml::xml_node<> *pRoot = doc.first_node();
+		for (rapidxml::xml_node<> *pNode = pRoot->first_node("difficulty"); pNode; pNode = pNode->next_sibling()) {
+			rapidxml::xml_attribute<> *pAttr = pNode->first_attribute();
+			if (pAttr->value() == difficulty) {
+				for (rapidxml::xml_node<> *pNodeI = pNode->first_node(); pNodeI; pNodeI = pNodeI->next_sibling()) {
+					str1 = pNodeI->name();
+					if (!str1.compare(datoABuscar)) {
+						datoARetornar = atoi(pNodeI->value());
+					}
+				}
+			}
+		}
+		return datoARetornar;
 	}
 
 	void introducirRanking(string nombre, int score) {
