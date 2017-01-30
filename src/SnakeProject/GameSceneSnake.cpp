@@ -19,10 +19,12 @@ void GameSceneSnake::OnEntry(void) {
 			alimentosASumar = IOManager::consultarXML("easy", "food");
 			limiteAlimentos = IOManager::consultarXML("easy", "startingFood");
 			vidas = IOManager::consultarXML("easy", "lives");
+			frameLimit -= IOManager::consultarXML("easy", "startingSpeed");
 	} else if (difficulty == 1) {
 		alimentosASumar = IOManager::consultarXML("medium", "food");
 		limiteAlimentos = IOManager::consultarXML("medium", "startingFood");
 		vidas = IOManager::consultarXML("medium", "lives");
+		frameLimit -= IOManager::consultarXML("medium", "startingSpeed");
 		for (int i = 4; i < (W.GetHeight() / m_snake.GetHead().spr.transform.h) - 5; i++) {
 			std::pair<int, int> pos;
 			pos.second = i;
@@ -37,6 +39,17 @@ void GameSceneSnake::OnEntry(void) {
 		alimentosASumar = IOManager::consultarXML("hard", "food");
 		limiteAlimentos = IOManager::consultarXML("hard", "startingFood");
 		vidas = IOManager::consultarXML("hard", "lives");
+		frameLimit -= IOManager::consultarXML("hard", "startingSpeed");
+		for (int i = 4; i < (W.GetHeight() / m_snake.GetHead().spr.transform.h) - 5; i++) {
+			std::pair<int, int> pos;
+			pos.second = i;
+
+			pos.first = 7;
+			newObstacles.push_back(std::pair<bool, std::pair<int, int>>(true, pos));
+
+			pos.first = (W.GetWidth() / m_snake.GetHead().spr.transform.w) - 8;
+			newObstacles.push_back(std::pair<bool, std::pair<int, int>>(true, pos));
+		}
 		for (int i = 8; i < (W.GetWidth() / m_snake.GetHead().spr.transform.w) - 8; i++) {
 			std::pair<int, int> pos;
 			pos.first = i;
@@ -50,6 +63,11 @@ void GameSceneSnake::OnEntry(void) {
 	}
 	m_snake.SetObstacles(newObstacles);
 	food.SetFood(AvailablePositions());
+
+	//Initial snake
+	preHead = m_snake.GetHead();
+	preTail = m_snake.GetTail();
+	preSnakeParts = m_snake.GetSnakeParts();
 }
 
 void GameSceneSnake::OnExit(void) {
@@ -57,7 +75,9 @@ void GameSceneSnake::OnExit(void) {
 
 void GameSceneSnake::Update(void) {
 
-	if (IM.IsKeyDown<KEY_BUTTON_ENTER>() && m_snake.IsDead()) SetState<SceneState::SLEEP>();
+	if (IM.IsKeyDown<KEY_BUTTON_ENTER>() && pauseDead) pauseDead = false;
+
+	if (IM.IsKeyDown<KEY_BUTTON_ENTER>() && m_snake.IsDead() && vidas == 0) SetState<SceneState::SLEEP>();
 
 	//Comprobar teclas de dirección dependiendo de la dirección actual
 	if (m_snake.GetHead().dir == Direction::RIGHT || m_snake.GetHead().dir == Direction::LEFT) {
@@ -103,7 +123,16 @@ void GameSceneSnake::Update(void) {
 	}
 	if (contadorAlimentos < limiteAlimentos) {
 		if (frameRate > frameLimit) {
-			if (!m_snake.IsDead()) {
+			if (m_snake.IsDead() && vidas > 0) {
+				vidas--;
+				m_snake.NotDead();
+				m_snake.SetHead(preHead);
+				m_snake.SetTail(preTail);
+				m_snake.SetSnakeParts(preSnakeParts);
+				newDir = preHead.dir;
+				pauseDead = true;
+			}
+			if (!m_snake.IsDead() && !pauseDead) {
 				m_snake.Move(newDir);
 			}
 			frameRate = 0;
@@ -113,9 +142,18 @@ void GameSceneSnake::Update(void) {
 		}
 	}
 	else {
-		contadorNivel++;
-		contadorAlimentos = 0;
-		limiteAlimentos += alimentosASumar * contadorNivel;
+		pauseLevelUp = true;
+		if (IM.IsKeyDown<KEY_BUTTON_ENTER>()) {
+			pauseLevelUp = false;
+			contadorNivel++;
+			contadorAlimentos = 0;
+			limiteAlimentos += alimentosASumar * contadorNivel;
+
+			//Save snake
+			preHead = m_snake.GetHead();
+			preTail = m_snake.GetTail();
+			preSnakeParts = m_snake.GetSnakeParts();
+		}
 	}
 
 }
@@ -129,10 +167,25 @@ void GameSceneSnake::Draw(void) {
 	//Pintar GUI
 	GUI::DrawTextBlended<FontID::ARIAL>("Nivel: " + std::to_string(contadorNivel),  { W.GetWidth() / 3, 15, 1, 1 },{ 0, 0, 0 });
 	GUI::DrawTextBlended<FontID::ARIAL>("Score: " + std::to_string(score), { W.GetWidth() / 2, 15, 1, 1 }, { 0, 0, 0 });
-	GUI::DrawTextBlended<FontID::ARIAL>("Vida: ", { W.GetWidth() / 6, 15, 1, 1 }, { 0, 0, 0 });
+	GUI::DrawTextBlended<FontID::ARIAL>("Vida: ", { W.GetWidth() / 9, 15, 1, 1 }, { 0, 0, 0 });
 	for (int i = 0; i < vidas; i++) {
+		Sprite newSpr;
+		newSpr.objectID = ObjectID::HEART;
+		newSpr.transform.w = W.GetWidth() / 31;
+		newSpr.transform.h = W.GetHeight() / 24;
+		newSpr.transform.y = 0;
+		newSpr.transform.x = (W.GetWidth() / 7) + i * newSpr.transform.w;
+		newSpr.Draw();
+	}
 
-		GUI::DrawTextBlended<FontID::ARIAL>("\x03", { W.GetWidth() / 6, 15, 1, 1 }, { 0, 0, 0 });;
+	if (pauseLevelUp) {
+		GUI::DrawTextBlended<FontID::ARIAL>("LEVEL: " + std::to_string(contadorNivel) + " COMPLETE", { W.GetWidth() / 2, (W.GetHeight() / 2) - 15, 1, 1 }, { 0, 0, 0 });
+		GUI::DrawTextBlended<FontID::ARIAL>("Press ENTER to continue...", { W.GetWidth() / 2, W.GetHeight() - 50, 1, 1 }, { 0, 0, 0 });
+	}
+
+	if (pauseDead) {
+		GUI::DrawTextBlended<FontID::ARIAL>("LIVES LEFT " + std::to_string(vidas), { W.GetWidth() / 2, (W.GetHeight() / 2) - 15, 1, 1 }, { 0, 0, 0 });
+		GUI::DrawTextBlended<FontID::ARIAL>("Press ENTER to continue...", { W.GetWidth() / 2, W.GetHeight() - 50, 1, 1 }, { 0, 0, 0 });
 	}
 
 	if (m_snake.IsDead()) {

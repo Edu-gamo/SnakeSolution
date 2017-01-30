@@ -20,11 +20,16 @@ public:
 	Snake();
 	void Move(Direction dir); //Mueve la serpiente en una dirección comprobando las colisiones col los limites y con ella misma
 	bool IsDead() { return dead; }
+	void NotDead() { dead = false; }
 	void Draw();
 
 	SnakePart GetHead() { return head; }
 	SnakePart GetTail() { return tail; }
 	std::vector<SnakePart> GetSnakeParts() { return snk; }
+
+	void SetHead(SnakePart newHead) { head = newHead; }
+	void SetTail(SnakePart newTail) { tail = newTail; }
+	void SetSnakeParts(std::vector<SnakePart> newSnakeParts) { snk = newSnakeParts; }
 
 	void DrawParts(int x1, int y1, int x2, int y2, Direction dir);
 	int SwitchSprite(Direction fromDir, Direction toDir);

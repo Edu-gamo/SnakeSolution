@@ -35,4 +35,11 @@ private:
 	int limiteAlimentos;
 	int alimentosASumar = 0;
 	int vidas;
+	bool pauseLevelUp = false;
+	bool pauseDead = false;
+
+	//Previous snake on level up
+	SnakePart preHead;
+	SnakePart preTail;
+	std::vector<SnakePart> preSnakeParts; //Vector que almacena la posición de todos los cambios de dirección
 };

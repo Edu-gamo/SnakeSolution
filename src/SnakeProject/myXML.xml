@@ -3,26 +3,26 @@
 
  <difficulty id="easy">
   <lives>4</lives>
-  <food>6</food>
+  <aditionalfood>6</aditionalfood>
   <time>120</time>
   <startingFood>5</startingFood>
-  <startingVelocity>0</startingVelocity>
+  <startingSpeed>10</startingSpeed>
  </difficulty>
 
  <difficulty id="medium">
   <lives>3</lives>
-  <food>8</food>
+  <aditionalfood>8</aditionalfood>
   <time>90</time>
   <startingFood>10</startingFood>
-  <startingVelocity>0</startingVelocity>
+  <startingSpeed>30</startingSpeed>
  </difficulty>
 
  <difficulty id="hard">
   <lives>2</lives>
-  <food>10</food>
+  <aditionalfood>10</aditionalfood>
   <time>60</time>
   <startingFood>15</startingFood>
-  <startingVelocity>0</startingVelocity>
+  <startingSpeed>60</startingSpeed>
  </difficulty>
 
 </difficulties>

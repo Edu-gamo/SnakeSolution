@@ -33,6 +33,8 @@ namespace GameEngine {
 		R.LoadTexture<ObjectID::FRUIT_G>("gfx/snakeG/fruitG.png");
 		R.LoadTexture<ObjectID::FRUIT_R>("gfx/snakeR/fruitR.png");
 
+		R.LoadTexture<ObjectID::HEART>("gfx/heart.png");
+
 		//Green snake
 		R.LoadTexture<ObjectID::SNK_G_BODY_HOR>("gfx/snakeG/snakeG-B-HOR.png");
 		R.LoadTexture<ObjectID::SNK_G_BODY_VERT>("gfx/snakeG/snakeG-B-VERT.png");
