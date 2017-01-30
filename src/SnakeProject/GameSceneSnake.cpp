@@ -18,14 +18,14 @@ void GameSceneSnake::OnEntry(void) {
 	contadorNivel = 1;
 	std::vector<std::pair<bool, std::pair<int, int>>> newObstacles;
 	if (difficulty == 0) {
-			alimentosASumar = IOManager::consultarXML("easy", "food");
+			alimentosASumar = IOManager::consultarXML("easy", "aditionalfood");
 			limiteAlimentos = IOManager::consultarXML("easy", "startingFood");
 			vidas = IOManager::consultarXML("easy", "lives");
 			frameLimit -= IOManager::consultarXML("easy", "startingSpeed");
 			maxTime = IOManager::consultarXML("easy", "time");
 			actualTime = maxTime;
 	} else if (difficulty == 1) {
-		alimentosASumar = IOManager::consultarXML("medium", "food");
+		alimentosASumar = IOManager::consultarXML("medium", "aditionalfood");
 		limiteAlimentos = IOManager::consultarXML("medium", "startingFood");
 		vidas = IOManager::consultarXML("medium", "lives");
 		frameLimit -= IOManager::consultarXML("medium", "startingSpeed");
@@ -42,7 +42,7 @@ void GameSceneSnake::OnEntry(void) {
 			newObstacles.push_back(std::pair<bool, std::pair<int, int>>(true, pos));
 		}
 	} else {
-		alimentosASumar = IOManager::consultarXML("hard", "food");
+		alimentosASumar = IOManager::consultarXML("hard", "aditionalfood");
 		limiteAlimentos = IOManager::consultarXML("hard", "startingFood");
 		vidas = IOManager::consultarXML("hard", "lives");
 		frameLimit -= IOManager::consultarXML("hard", "startingSpeed");
@@ -140,6 +140,19 @@ void GameSceneSnake::Update(void) {
 				newDir = preHead.dir;
 				contadorAlimentos = 0;
 				pauseDead = true;
+
+				//Reset speed
+				frameLimit = 200;
+				if (difficulty == 0) {
+					frameLimit -= IOManager::consultarXML("easy", "startingSpeed");
+				}
+				else if (difficulty == 1) {
+					frameLimit -= IOManager::consultarXML("medium", "startingSpeed");
+				}
+				else {
+					frameLimit -= IOManager::consultarXML("hard", "startingSpeed");
+				}
+
 			}
 			if (!m_snake.IsDead() && !pauseDead) {
 				m_snake.Move(newDir);
@@ -158,6 +171,18 @@ void GameSceneSnake::Update(void) {
 			contadorNivel++;
 			contadorAlimentos = 0;
 			limiteAlimentos += alimentosASumar * contadorNivel;
+
+			//Reset speed
+			frameLimit = 200;
+			if (difficulty == 0) {
+				frameLimit -= IOManager::consultarXML("easy", "startingSpeed");
+			}
+			else if (difficulty == 1) {
+				frameLimit -= IOManager::consultarXML("medium", "startingSpeed");
+			}
+			else {
+				frameLimit -= IOManager::consultarXML("hard", "startingSpeed");
+			}
 
 			//Save snake
 			preHead = m_snake.GetHead();
