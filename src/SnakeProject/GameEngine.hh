@@ -10,6 +10,7 @@
 #pragma region GAME_SCENES
 #include "MenuScene.h"
 #include "GameSceneSnake.h"
+#include "RankingScene.h"
 #pragma endregion TODO
 
 //! Initializes game needs and controls the game loop
@@ -100,6 +101,7 @@ namespace GameEngine {
 	void AddScenes(void) {
 		SM.AddScene<MenuScene>();
 		SM.AddScene<GameSceneSnake>();
+		SM.AddScene<RankingScene>();
 		SM.SetCurScene<MenuScene>();
 		//SM.AddScene<GameScene>();
 		//SM.SetCurScene<GameScene>();
@@ -127,10 +129,18 @@ namespace GameEngine {
 				SM.GetScene<GameSceneSnake>()->SetDifficulty(SM.GetScene<MenuScene>()->GetDifficulty());
 				SM.SetCurScene<GameSceneSnake>();
 			}
-										else { SM.SetCurScene<MenuScene>(); }
-										m_curScene = SM.GetCurScene(); break;
+										else if (m_curScene == SM.GetScene<GameSceneSnake>()) {
+											SM.SetCurScene<RankingScene>();
+										}
+										else {
+											SM.SetCurScene<MenuScene>();
+										}
+										m_curScene = SM.GetCurScene(); 
+										break;
+										
 			default:;
 			}
+
 #pragma endregion
 #pragma region GAME_DRAW
 			TM.FPSEnd([&]() { // Limits the FPS rendering with a lambda function as the parameter that draws the whole game

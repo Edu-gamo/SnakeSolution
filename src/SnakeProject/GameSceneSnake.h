@@ -16,6 +16,8 @@ public:
 	void SetDifficulty(int diff) { difficulty = diff; }
 	int GetDifficulty() { return difficulty; }
 
+	int GetScore() { return score; }
+
 	std::vector<std::pair<bool, std::pair<int, int>>> ChangeObstacles(bool snakeColor);
 	std::vector<std::pair<int, int>> AvailablePositions();
 

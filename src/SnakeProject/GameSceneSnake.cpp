@@ -1,6 +1,7 @@
 #include "GameSceneSnake.h"
 #include "System.hh"
 #include "GUI.hh"
+#include "RankingScene.h"
 #include "IOManager.hh"
 
 GameSceneSnake::GameSceneSnake(void) {
@@ -85,7 +86,11 @@ void GameSceneSnake::Update(void) {
 
 	if (IM.IsKeyDown<KEY_BUTTON_ENTER>() && pauseDead) pauseDead = false;
 
-	if (IM.IsKeyDown<KEY_BUTTON_ENTER>() && m_snake.IsDead() && vidas == 0) SetState<SceneState::SLEEP>();
+	if (IM.IsKeyDown<KEY_BUTTON_ENTER>() && m_snake.IsDead() && vidas == 0) {
+		SetState<SceneState::SLEEP>();
+		SM.GetScene<RankingScene>()->SetScore(SM.GetScene<GameSceneSnake>()->GetScore());
+	}
+
 
 	//Comprobar teclas de dirección dependiendo de la dirección actual
 	if (m_snake.GetHead().dir == Direction::RIGHT || m_snake.GetHead().dir == Direction::LEFT) {

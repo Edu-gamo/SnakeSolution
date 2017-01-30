@@ -25,6 +25,9 @@
     <ClCompile Include="Snake.cpp">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="RankingScene.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.hh">
@@ -88,6 +91,9 @@
       <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="Color.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="RankingScene.h">
       <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,7 +8,6 @@
 #include <string>
 #include <sstream>
 
-#define archivoRanking "ranking.dat"
 #define archivoConfiguacion "myXML.xml"
 
 using namespace std;
@@ -41,11 +40,11 @@ namespace IOManager {
 		return datoARetornar;
 	}
 
-	void introducirRanking(string nombre, int score) {
+	void introducirRanking(string nombre, int score, string difficulty) {
 		char final = ';';
 		int scorein = score;
 
-		ofstream fsalida("ranking.dat", ios::out | ios::app | ios::binary);
+		ofstream fsalida("ranking" + difficulty + ".dat", ios::out | ios::app | ios::binary);
 
 		fsalida.write((nombre.c_str()), nombre.size());
 		fsalida.write(reinterpret_cast<char *>(&final), sizeof(final));
@@ -54,14 +53,14 @@ namespace IOManager {
 		fsalida.close();
 	}
 	
-	vector<pair<string, int>> leerRanking() {
+	vector<pair<string, int>> leerRanking(string difficulty) {
 		vector<pair<string, int>> ranking;
 
 		bool cond = false;
 		string pruebachar;
 		int pruebaint;
 
-		ifstream fentrada(archivoRanking, ios::in | ios::binary);
+		ifstream fentrada("ranking" + difficulty + ".dat", ios::in | ios::binary);
 
 		if (fentrada.is_open()) {
 			while (!fentrada.eof()) {
