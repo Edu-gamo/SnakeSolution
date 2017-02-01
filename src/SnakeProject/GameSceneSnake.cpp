@@ -15,6 +15,7 @@ void GameSceneSnake::OnEntry(void) {
 	frameLimit = 200;
 	score = 0;
 	contadorNivel = 1;
+	contadorAlimentos = 0;
 	std::vector<std::pair<bool, std::pair<int, int>>> newObstacles;
 	if (difficulty == 0) {
 			alimentosASumar = IOManager::consultarXML("easy", "aditionalfood");
