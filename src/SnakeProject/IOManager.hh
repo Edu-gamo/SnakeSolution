@@ -13,7 +13,7 @@
 using namespace std;
 
 namespace IOManager {
-	int consultarXML(string difficulty, string datoABuscar) {
+	static int consultarXML(string difficulty, string datoABuscar) {
 		int datoARetornar= 0;
 		string str1;
 
@@ -40,7 +40,7 @@ namespace IOManager {
 		return datoARetornar;
 	}
 
-	void introducirRanking(string nombre, int score, string difficulty) {
+	/*static void introducirRanking(string nombre, int score, string difficulty) {
 		char final = ';';
 		int scorein = score;
 
@@ -51,9 +51,23 @@ namespace IOManager {
 		fsalida.write(reinterpret_cast<char *>(&scorein), sizeof(scorein));
 
 		fsalida.close();
+	}*/
+
+	static void introducirRanking(std::vector<std::pair<std::string, int>> rankingActual, string difficulty) {
+		char final = ';';
+
+		ofstream fsalida("ranking" + difficulty + ".dat", ios::out | ios::binary);
+
+		for (auto it = rankingActual.begin(); it != rankingActual.end(); ++it) {
+			fsalida.write((it->first.c_str()), it->first.size());
+			fsalida.write(reinterpret_cast<char *>(&final), sizeof(final));
+			fsalida.write(reinterpret_cast<char *>(&it->second), sizeof(it->second));
+		}
+
+		fsalida.close();
 	}
 	
-	vector<pair<string, int>> leerRanking(string difficulty) {
+	static vector<pair<string, int>> leerRanking(string difficulty) {
 		vector<pair<string, int>> ranking;
 
 		bool cond = false;
@@ -74,9 +88,9 @@ namespace IOManager {
 				}	
 			}
 		}
-		else {
+		/*else {
 			cout << "No hay ninguna puntuacion" << endl;
-		}
+		}*/
 		fentrada.close();
 
 		return ranking;

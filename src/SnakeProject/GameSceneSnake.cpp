@@ -1,8 +1,6 @@
 #include "GameSceneSnake.h"
 #include "System.hh"
 #include "GUI.hh"
-#include "RankingScene.h"
-#include "IOManager.hh"
 
 GameSceneSnake::GameSceneSnake(void) {
 	game_background = { { 0, 0, W.GetWidth(), W.GetHeight() }, ObjectID::GAME_BG };
@@ -86,9 +84,22 @@ void GameSceneSnake::Update(void) {
 
 	if (IM.IsKeyDown<KEY_BUTTON_ENTER>() && pauseDead) pauseDead = false;
 
+	/*if (m_snake.IsDead() && vidas == 0) {
+		char letra;
+		string name = "";
+		do {
+			letra = IM.GetKey();
+			if (letra != '\0' && letra != ';') {
+				if (letra == '\1' && name.size() > 0) { name.pop_back(); }
+				else if (letra != '\1') name += letra;
+				cout << name << endl;
+			}
+		} while (letra != '\0');
+		cout << "Nombre final: " << name << endl;
+	}*/
+
 	if (IM.IsKeyDown<KEY_BUTTON_ENTER>() && m_snake.IsDead() && vidas == 0) {
 		SetState<SceneState::SLEEP>();
-		SM.GetScene<RankingScene>()->SetScore(SM.GetScene<GameSceneSnake>()->GetScore());
 	}
 
 

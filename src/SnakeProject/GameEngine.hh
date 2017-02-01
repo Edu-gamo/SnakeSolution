@@ -130,7 +130,7 @@ namespace GameEngine {
 											SM.SetCurScene<GameSceneSnake>();
 										}
 										else if (m_curScene == SM.GetScene<GameSceneSnake>()) {
-											SM.GetScene<RankingScene>()->SetScore(SM.GetScene<GameSceneSnake>()->GetScore());
+											SM.GetScene<RankingScene>()->SetScore(std::pair<int,int>(SM.GetScene<GameSceneSnake>()->GetDifficulty(),SM.GetScene<GameSceneSnake>()->GetScore()));
 											SM.SetCurScene<RankingScene>();
 										}
 										else {

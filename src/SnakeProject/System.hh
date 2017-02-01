@@ -12,3 +12,4 @@
 #include "TimeManager.hh"
 #include "InputManager.hh"
 #include "SceneManager.hh"
+#include "IOManager.hh"

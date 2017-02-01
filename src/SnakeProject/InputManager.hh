@@ -145,6 +145,7 @@ public:
 	template<Sint32 key> bool IsKeyUp(void) {
 		return CheckInput<key, InputValue::UP>();
 	}
+
 private:
 	/**
 	* Defines each state of the input event stored (DOWN -> HOLD | UP -> EMPTY).
