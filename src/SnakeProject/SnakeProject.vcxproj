@@ -141,6 +141,7 @@
     <ClInclude Include="InputManager.hh" />
     <ClInclude Include="IOManager.hh" />
     <ClInclude Include="MenuScene.h" />
+    <ClInclude Include="MusicManager.h" />
     <ClInclude Include="RankingScene.h" />
     <ClInclude Include="Renderer.hh" />
     <ClInclude Include="Resource.hh" />

@@ -96,5 +96,8 @@
     <ClInclude Include="RankingScene.h">
       <Filter>Model</Filter>
     </ClInclude>
+    <ClInclude Include="MusicManager.h">
+      <Filter>Controller</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

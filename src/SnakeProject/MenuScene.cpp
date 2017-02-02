@@ -30,6 +30,9 @@ MenuScene::~MenuScene(void) {
 }
 
 void MenuScene::OnEntry(void) {
+
+	MM.PlayMusic<ObjectID::MUSIC_MENU>();
+
 	play.ChangeState(true);
 	exit.ChangeState(true);
 
@@ -39,6 +42,7 @@ void MenuScene::OnEntry(void) {
 }
 
 void MenuScene::OnExit(void) {
+	MM.StopMusic();
 }
 
 void MenuScene::Update(void) {
@@ -93,8 +97,4 @@ void MenuScene::Draw(void) {
 	if (easy.IsActive()) easy.GetSprite().Draw();
 	if (medium.IsActive()) medium.GetSprite().Draw();
 	if (hard.IsActive()) hard.GetSprite().Draw();
-	/*GUI::DrawTextShaded<FontID::FACTORY>("ENTI CRUSH", { W.GetWidth() >> 1,
-	int(W.GetHeight()*.1f), 1, 1 }, { 190, 0, 160 }, { 50, 200, 230 }); // Render score that will be different when updated
-	GUI::DrawTextBlended<FontID::CANDY>("Score: " + std::to_string(m_score),
-	{ W.GetWidth() >> 1, int(W.GetHeight()*.9f), 1, 1 }, { 115, 0, 180 }); // Render score that will be different when updated*/
 }

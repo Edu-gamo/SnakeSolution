@@ -10,6 +10,7 @@ GameSceneSnake::~GameSceneSnake(void) {
 }
 
 void GameSceneSnake::OnEntry(void) {
+	MM.PlayMusic<ObjectID::MUSIC_GAME>();
 	m_snake = Snake();
 	newDir = m_snake.GetHead().dir;
 	frameLimit = 200;
@@ -82,6 +83,7 @@ void GameSceneSnake::OnEntry(void) {
 }
 
 void GameSceneSnake::OnExit(void) {
+	MM.StopMusic();
 }
 
 void GameSceneSnake::Update(void) {
@@ -111,6 +113,7 @@ void GameSceneSnake::Update(void) {
 	}
 
 	if (m_snake.GetHead().spr.transform.x == food.GetSprite().transform.x && m_snake.GetHead().spr.transform.y == food.GetSprite().transform.y) {
+		MM.PlaySound<ObjectID::POINTS>();
 		food.SetEaten();
 		m_snake.SnakeGrow();
 		score += (contadorAlimentos+1) * 100;
@@ -264,7 +267,6 @@ void GameSceneSnake::DrawWalls() {
 	Sprite newSpr;
 	if (m_snake.IsGreen()) { newSpr.objectID = ObjectID::WALL_G; }
 	else { newSpr.objectID = ObjectID::WALL_R; }
-	//newSpr.objectID = ObjectID::WALL_G;
 	newSpr.transform.w = W.GetWidth() / 31;
 	newSpr.transform.h = W.GetHeight() / 24;
 
@@ -330,7 +332,7 @@ std::vector<std::pair<int, int>> GameSceneSnake::AvailablePositions() {
 			std::vector<std::pair<bool, std::pair<int, int>>> obs = m_snake.GetObstacles();
 			if (obs.size() > 0) {
 				for (int k = 0; k < obs.size(); k++) {
-					if (/*obs[i].first &&*/ (obs[k].second.first == i && obs[k].second.second == j)) {
+					if (obs[k].second.first == i && obs[k].second.second == j) {
 						empty = false;
 					}
 				}

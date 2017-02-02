@@ -37,13 +37,12 @@ void RankingScene::Update(void) {
 
 	if (needName) {
 		char letra;
-		//letra = IM.GetKey();
 		letra = DetectarTeclado();
 		if (letra != '\0' && letra != ';') {
 			if (letra == '<' && name.size() > 0) { name.pop_back(); }
-			else if (letra != '<') name += letra;
+			else if (letra != '<' && name.size() < 15) name += letra;
 		}
-		if (letra == '\0') needName = false;
+		if (letra == '\0' && name.size() >= 3) needName = false;
 	}
 
 	if (saveRanking && !needName) {
@@ -83,10 +82,10 @@ void RankingScene::Draw(void) {
 		string strDifficulty = DifficultyString(difficulty);
 		GUI::DrawTextBlended<FontID::ARIAL>("RANKING: " + strDifficulty, { W.GetWidth() / 2, 15, 1, 1 }, { 255, 255, 255 });
 
-		int posY = 100;
+		int posY = 200;
 		for (auto it = ranking_desordenado.begin(); it != ranking_desordenado.end(); ++it) {
 			GUI::DrawTextBlended<FontID::ARIAL>(it->first + " ==> " + std::to_string(it->second), { W.GetWidth() / 2, posY, 1, 1 }, { 255, 255, 255 });
-			posY += 60;
+			posY += 50;
 		}
 
 		GUI::DrawTextBlended<FontID::ARIAL>("Press ENTER to continue...", { W.GetWidth() / 2, W.GetHeight() - 50, 1, 1 }, { 255, 255, 255 });
@@ -97,13 +96,13 @@ string DifficultyString(int dif) {
 	string strDifficulty;
 	switch (dif) {
 		case 0:
-			strDifficulty = "Easy";
+			strDifficulty = "EASY";
 			break;
 		case 1:
-			strDifficulty = "Medium";
+			strDifficulty = "MEDIUM";
 			break;
 		case 2:
-			strDifficulty = "Hard";
+			strDifficulty = "HARD";
 			break;
 	}
 	return strDifficulty;

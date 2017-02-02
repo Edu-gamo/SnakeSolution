@@ -13,3 +13,4 @@
 #include "InputManager.hh"
 #include "SceneManager.hh"
 #include "IOManager.hh"
+#include "MusicManager.h"
