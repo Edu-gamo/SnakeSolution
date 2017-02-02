@@ -16,7 +16,9 @@ void GameSceneSnake::OnEntry(void) {
 	score = 0;
 	contadorNivel = 1;
 	contadorAlimentos = 0;
+	saveScore = 0;
 	std::vector<std::pair<bool, std::pair<int, int>>> newObstacles;
+
 	if (difficulty == 0) {
 			alimentosASumar = IOManager::consultarXML("easy", "aditionalfood");
 			limiteAlimentos = IOManager::consultarXML("easy", "startingFood");
@@ -48,6 +50,7 @@ void GameSceneSnake::OnEntry(void) {
 		frameLimit -= IOManager::consultarXML("hard", "startingSpeed");
 		maxTime = IOManager::consultarXML("hard", "time");
 		actualTime = maxTime;
+
 		for (int i = 4; i < (W.GetHeight() / m_snake.GetHead().spr.transform.h) - 5; i++) {
 			std::pair<int, int> pos;
 			pos.second = i;
@@ -70,7 +73,7 @@ void GameSceneSnake::OnEntry(void) {
 		}
 	}
 	m_snake.SetObstacles(newObstacles);
-	food.SetFood(AvailablePositions());
+	food.SetFood(AvailablePositions(), difficulty);
 
 	//Initial snake
 	preHead = m_snake.GetHead();
@@ -85,24 +88,9 @@ void GameSceneSnake::Update(void) {
 
 	if (IM.IsKeyDown<KEY_BUTTON_ENTER>() && pauseDead) pauseDead = false;
 
-	/*if (m_snake.IsDead() && vidas == 0) {
-		char letra;
-		string name = "";
-		do {
-			letra = IM.GetKey();
-			if (letra != '\0' && letra != ';') {
-				if (letra == '\1' && name.size() > 0) { name.pop_back(); }
-				else if (letra != '\1') name += letra;
-				cout << name << endl;
-			}
-		} while (letra != '\0');
-		cout << "Nombre final: " << name << endl;
-	}*/
-
 	if (IM.IsKeyDown<KEY_BUTTON_ENTER>() && m_snake.IsDead() && vidas == 0) {
 		SetState<SceneState::SLEEP>();
 	}
-
 
 	//Comprobar teclas de dirección dependiendo de la dirección actual
 	if (m_snake.GetHead().dir == Direction::RIGHT || m_snake.GetHead().dir == Direction::LEFT) {
@@ -126,7 +114,6 @@ void GameSceneSnake::Update(void) {
 		food.SetEaten();
 		m_snake.SnakeGrow();
 		score += (contadorAlimentos+1) * 100;
-		//score++;
 		if (frameLimit > minLimit && score % 2 == 0) {
 			if (frameLimit - speedIncrement <= minLimit) { frameLimit = minLimit; }
 			else frameLimit -= speedIncrement;
@@ -143,7 +130,7 @@ void GameSceneSnake::Update(void) {
 		}
 	}
 	if (food.IsEaten()) {
-		food.SetFood(AvailablePositions());
+		food.SetFood(AvailablePositions(), difficulty);
 		contadorAlimentos++;
 	}
 	if (contadorAlimentos < limiteAlimentos) {
@@ -154,6 +141,7 @@ void GameSceneSnake::Update(void) {
 				m_snake.SetHead(preHead);
 				m_snake.SetTail(preTail);
 				m_snake.SetSnakeParts(preSnakeParts);
+				score = saveScore;
 				newDir = preHead.dir;
 				contadorAlimentos = 0;
 				pauseDead = true;
@@ -205,6 +193,7 @@ void GameSceneSnake::Update(void) {
 			preHead = m_snake.GetHead();
 			preTail = m_snake.GetTail();
 			preSnakeParts = m_snake.GetSnakeParts();
+			saveScore = score;
 		}
 	}
 

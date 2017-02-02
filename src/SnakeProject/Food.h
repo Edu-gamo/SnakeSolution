@@ -4,10 +4,14 @@
 
 class Food {
 public:
-	void SetFood(std::vector<std::pair<int, int>> availablePositions) {
+	void SetFood(std::vector<std::pair<int, int>> availablePositions, int difficulty) {
 		std::srand((Uint32)time(NULL));
 
-		spr.objectID = (ObjectID)(std::rand() % 2 + (int)ObjectID::FRUIT_G);
+		if (difficulty == 2) {
+			spr.objectID = (ObjectID)(std::rand() % 2 + (int)ObjectID::FRUIT_G);
+		} else {
+			spr.objectID = (ObjectID)((int)ObjectID::FRUIT_G);
+		}
 
 		spr.transform.w = W.GetWidth() / 31;
 		spr.transform.h = W.GetHeight() / 24;

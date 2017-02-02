@@ -3,25 +3,25 @@
 
  <difficulty id="easy">
   <lives>4</lives>
-  <aditionalfood>6</aditionalfood>
+  <aditionalfood>2</aditionalfood>
   <time>120</time>
-  <startingFood>5</startingFood>
+  <startingFood>10</startingFood>
   <startingSpeed>10</startingSpeed>
  </difficulty>
 
  <difficulty id="medium">
   <lives>3</lives>
-  <aditionalfood>8</aditionalfood>
+  <aditionalfood>3</aditionalfood>
   <time>90</time>
-  <startingFood>10</startingFood>
+  <startingFood>15</startingFood>
   <startingSpeed>30</startingSpeed>
  </difficulty>
 
  <difficulty id="hard">
   <lives>2</lives>
-  <aditionalfood>10</aditionalfood>
+  <aditionalfood>4</aditionalfood>
   <time>60</time>
-  <startingFood>15</startingFood>
+  <startingFood>20</startingFood>
   <startingSpeed>60</startingSpeed>
  </difficulty>
 
