@@ -14,8 +14,11 @@ public:
 
 	int GetDifficulty() { return difficulty; }
 
+	int GoToGame() { return toPlay; }
+
 private:
 	Sprite menu_background;
-	Button play, exit, easy, medium, hard;
+	Button play, exit, easy, medium, hard, ranking;
 	int difficulty = 0;
+	bool toPlay;
 };

@@ -30,6 +30,7 @@ namespace GameEngine {
 		R.LoadTexture<ObjectID::EASY_BUT>("gfx/BOTONEASY1.jpg");
 		R.LoadTexture<ObjectID::MEDIUM_BUT>("gfx/BOTONMEDIUM1.jpg");
 		R.LoadTexture<ObjectID::HARD_BUT>("gfx/BOTONHARD1.jpg");
+		R.LoadTexture<ObjectID::RANK_BUT>("gfx/BOTONHARD1.jpg");
 
 		R.LoadTexture<ObjectID::WALL_G>("gfx/wallG.png");
 		R.LoadTexture<ObjectID::WALL_R>("gfx/wallR.png");
@@ -133,8 +134,14 @@ namespace GameEngine {
 			case SceneState::RUNNING:	IM.Update(); m_curScene->Update(); break; // Updates the InputManager and the current scene
 			case SceneState::EXIT:		m_isRunning = false; break; // Triggers an end of the game looping
 			case SceneState::SLEEP:		if (m_curScene == SM.GetScene<MenuScene>()) {
-											SM.GetScene<GameSceneSnake>()->SetDifficulty(SM.GetScene<MenuScene>()->GetDifficulty());
-											SM.SetCurScene<GameSceneSnake>();
+											if (SM.GetScene<MenuScene>()->GoToGame()) {
+												SM.GetScene<GameSceneSnake>()->SetDifficulty(SM.GetScene<MenuScene>()->GetDifficulty());
+												SM.SetCurScene<GameSceneSnake>();
+											}
+											else {
+												SM.GetScene<RankingScene>()->SetScore(std::pair<int, int>(SM.GetScene<MenuScene>()->GetDifficulty(), -1));
+												SM.SetCurScene<RankingScene>();
+											}
 										}
 										else if (m_curScene == SM.GetScene<GameSceneSnake>()) {
 											SM.GetScene<RankingScene>()->SetScore(std::pair<int,int>(SM.GetScene<GameSceneSnake>()->GetDifficulty(),SM.GetScene<GameSceneSnake>()->GetScore()));

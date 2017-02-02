@@ -20,11 +20,11 @@ void RankingScene::OnEntry(void) {
 	name = "";
 
 	needName = false;
-	if (ranking_desordenado.size() == 0 || ranking_desordenado.size() < 10 || score > ranking_desordenado.back().second) {
+	if ((ranking_desordenado.size() == 0 || ranking_desordenado.size() < 10 || score > ranking_desordenado.back().second) && score != -1) {
 		needName = true;
 	}
 
-	saveRanking = true;
+	saveRanking = needName;
 
 }
 

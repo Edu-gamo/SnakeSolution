@@ -256,7 +256,7 @@ void GameSceneSnake::Draw(void) {
 		GUI::DrawTextBlended<FontID::ARIAL>("Press ENTER to continue...", { W.GetWidth() / 2, W.GetHeight() - 50, 1, 1 }, { 0, 0, 0 });
 	}
 
-	if (m_snake.IsDead()) {
+	if (m_snake.IsDead() && vidas == 0) {
 		GUI::DrawTextBlended<FontID::ARIAL>("GAME OVER", { W.GetWidth() / 2, (W.GetHeight() / 2) - 15, 1, 1 }, { 0, 0, 0 });
 		GUI::DrawTextBlended<FontID::ARIAL>("Press ENTER to continue...", { W.GetWidth() / 2, W.GetHeight() - 50, 1, 1 }, { 0, 0, 0 });
 	}
