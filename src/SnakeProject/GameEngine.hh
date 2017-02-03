@@ -30,7 +30,7 @@ namespace GameEngine {
 		R.LoadTexture<ObjectID::EASY_BUT>("gfx/BOTONEASY1.jpg");
 		R.LoadTexture<ObjectID::MEDIUM_BUT>("gfx/BOTONMEDIUM1.jpg");
 		R.LoadTexture<ObjectID::HARD_BUT>("gfx/BOTONHARD1.jpg");
-		R.LoadTexture<ObjectID::RANK_BUT>("gfx/BOTONHARD1.jpg");
+		R.LoadTexture<ObjectID::RANK_BUT>("gfx/BOTONRANKING1.jpg");
 
 		R.LoadTexture<ObjectID::WALL_G>("gfx/wallG.png");
 		R.LoadTexture<ObjectID::WALL_R>("gfx/wallR.png");
@@ -79,8 +79,11 @@ namespace GameEngine {
 		R.LoadTexture<ObjectID::SNK_R_DOWN_LEFT>("gfx/snakeR/snakeR-DownLeft.png");
 
 		//Cargar Musica
-		MM.LoadMusic<ObjectID::MUSIC_MENU>("sfx/theme.wav");
-		MM.LoadMusic<ObjectID::MUSIC_GAME>("sfx/theme.wav");
+		/*MM.LoadMusic<ObjectID::MUSIC_MENU>("sfx/theme.wav");
+		MM.LoadMusic<ObjectID::MUSIC_GAME>("sfx/theme.wav");*/
+
+		MM.LoadMusic<ObjectID::MUSIC_MENU>("sfx/menumusic.mp3");
+		MM.LoadMusic<ObjectID::MUSIC_GAME>("sfx/gamemusic.mp3");
 
 		//Cargar Sonidos
 		MM.LoadSound<ObjectID::POINTS>("sfx/points.wav");
