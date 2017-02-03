@@ -79,14 +79,13 @@ namespace GameEngine {
 		R.LoadTexture<ObjectID::SNK_R_DOWN_LEFT>("gfx/snakeR/snakeR-DownLeft.png");
 
 		//Cargar Musica
-		/*MM.LoadMusic<ObjectID::MUSIC_MENU>("sfx/theme.wav");
-		MM.LoadMusic<ObjectID::MUSIC_GAME>("sfx/theme.wav");*/
-
 		MM.LoadMusic<ObjectID::MUSIC_MENU>("sfx/menumusic.mp3");
 		MM.LoadMusic<ObjectID::MUSIC_GAME>("sfx/gamemusic.mp3");
 
 		//Cargar Sonidos
 		MM.LoadSound<ObjectID::POINTS>("sfx/points.wav");
+		MM.LoadSound<ObjectID::DEATH>("sfx/perderVida.mp3");
+		MM.LoadSound<ObjectID::GAME_OVER>("sfx/perderPartida.mp3");
 
 		/*//Blue snake
 		R.LoadTexture<ObjectID::SNK_B_BODY_HOR>("gfx/snakeB/snakeB-B-HOR.png");

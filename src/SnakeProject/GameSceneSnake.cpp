@@ -211,6 +211,9 @@ void GameSceneSnake::Update(void) {
 	}
 	if (actualTime == 0) m_snake.SetDead(true);
 
+	if(m_snake.IsDead() && vidas > 0) MM.PlaySound<ObjectID::DEATH>();
+	if(m_snake.IsDead() && vidas == 0) MM.PlaySound<ObjectID::GAME_OVER>();
+
 }
 
 void GameSceneSnake::Draw(void) {

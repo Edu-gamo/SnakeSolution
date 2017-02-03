@@ -35,7 +35,7 @@ enum class ObjectID : int {
 	TIME_BAR1, TIME_BAR2,
 
 	MUSIC_MENU, MUSIC_GAME, //Music
-	POINTS //Sounds
+	POINTS, DEATH, GAME_OVER //Sounds
 };
 inline std::ostream &operator<<(std::ostream &os, const ObjectID &id) { return os << int(id); };
 inline std::istream &operator>>(std::istream &is, ObjectID &id) { return is >> reinterpret_cast<int&>(id); };
