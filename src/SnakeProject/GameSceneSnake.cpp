@@ -80,6 +80,7 @@ void GameSceneSnake::OnEntry(void) {
 	preHead = m_snake.GetHead();
 	preTail = m_snake.GetTail();
 	preSnakeParts = m_snake.GetSnakeParts();
+	preSkinGreen = m_snake.IsGreen();
 
 	playGameOver = false;
 }
@@ -147,6 +148,7 @@ void GameSceneSnake::Update(void) {
 				m_snake.SetTail(preTail);
 				m_snake.SetSnakeParts(preSnakeParts);
 				score = saveScore;
+				m_snake.SetSkinGreen(preSkinGreen);
 				newDir = preHead.dir;
 				contadorAlimentos = 0;
 				pauseDead = true;
@@ -162,6 +164,8 @@ void GameSceneSnake::Update(void) {
 				else {
 					frameLimit -= IOManager::consultarXML("hard", "startingSpeed");
 				}
+
+				food.SetFood(AvailablePositions(), difficulty);
 
 			}
 			if (!m_snake.IsDead() && !pauseDead) {
@@ -199,6 +203,7 @@ void GameSceneSnake::Update(void) {
 			preTail = m_snake.GetTail();
 			preSnakeParts = m_snake.GetSnakeParts();
 			saveScore = score;
+			preSkinGreen = m_snake.IsGreen();
 		}
 	}
 

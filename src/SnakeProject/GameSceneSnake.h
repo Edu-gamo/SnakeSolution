@@ -49,6 +49,7 @@ private:
 	SnakePart preTail;
 	std::vector<SnakePart> preSnakeParts; //Vector que almacena la posición de todos los cambios de dirección
 	int saveScore=0;
+	bool preSkinGreen;
 
 	bool playGameOver = false;
 };
