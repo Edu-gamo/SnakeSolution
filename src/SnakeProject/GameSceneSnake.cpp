@@ -149,6 +149,7 @@ void GameSceneSnake::Update(void) {
 				m_snake.SetSnakeParts(preSnakeParts);
 				score = saveScore;
 				m_snake.SetSkinGreen(preSkinGreen);
+				m_snake.SetObstacles(ChangeObstacles(preSkinGreen));
 				newDir = preHead.dir;
 				contadorAlimentos = 0;
 				pauseDead = true;
