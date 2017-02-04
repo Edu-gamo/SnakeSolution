@@ -80,6 +80,8 @@ void GameSceneSnake::OnEntry(void) {
 	preHead = m_snake.GetHead();
 	preTail = m_snake.GetTail();
 	preSnakeParts = m_snake.GetSnakeParts();
+
+	playGameOver = false;
 }
 
 void GameSceneSnake::OnExit(void) {
@@ -212,7 +214,7 @@ void GameSceneSnake::Update(void) {
 	if (actualTime == 0) m_snake.SetDead(true);
 
 	if(m_snake.IsDead() && vidas > 0) MM.PlaySound<ObjectID::DEATH>();
-	if(m_snake.IsDead() && vidas == 0) MM.PlaySound<ObjectID::GAME_OVER>();
+	if (m_snake.IsDead() && vidas == 0 && !playGameOver) { playGameOver = true; MM.PlaySound<ObjectID::GAME_OVER>(); }
 
 }
 

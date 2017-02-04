@@ -14,6 +14,8 @@ RankingScene::~RankingScene(void) {
 
 void RankingScene::OnEntry(void) {
 
+	MM.PlayMusic<ObjectID::MUSIC_MENU>();
+
 	string strDifficulty = DifficultyString(difficulty);
 	ranking_desordenado = IOManager::leerRanking(strDifficulty);
 
@@ -29,6 +31,7 @@ void RankingScene::OnEntry(void) {
 }
 
 void RankingScene::OnExit(void) {
+	MM.StopMusic();
 }
 
 void RankingScene::Update(void) {

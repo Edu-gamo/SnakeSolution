@@ -84,7 +84,7 @@ namespace GameEngine {
 
 		//Cargar Sonidos
 		MM.LoadSound<ObjectID::POINTS>("sfx/points.wav");
-		MM.LoadSound<ObjectID::DEATH>("sfx/perderVida.mp3");
+		MM.LoadSound<ObjectID::DEATH>("sfx/perderVida.wav");
 		MM.LoadSound<ObjectID::GAME_OVER>("sfx/perderPartida.mp3");
 
 		/*//Blue snake
