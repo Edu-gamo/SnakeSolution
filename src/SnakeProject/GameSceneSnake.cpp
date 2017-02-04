@@ -227,6 +227,7 @@ void GameSceneSnake::Draw(void) {
 	//Pintar GUI
 	GUI::DrawTextBlended<FontID::ARIAL>("Nivel: " + std::to_string(contadorNivel),  { W.GetWidth() / 3, 15, 1, 1 },{ 0, 0, 0 });
 	GUI::DrawTextBlended<FontID::ARIAL>("Score: " + std::to_string(score), { W.GetWidth() / 2, 15, 1, 1 }, { 0, 0, 0 });
+	GUI::DrawTextBlended<FontID::ARIAL>("To Next Level: " + std::to_string(limiteAlimentos- contadorAlimentos), { W.GetWidth() - 300, 15, 1, 1 }, { 0, 0, 0 });
 	GUI::DrawTextBlended<FontID::ARIAL>("Vida: ", { W.GetWidth() / 9, 15, 1, 1 }, { 0, 0, 0 });
 	for (int i = 0; i < vidas; i++) {
 		Sprite newSpr;
